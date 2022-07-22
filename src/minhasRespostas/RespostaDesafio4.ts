@@ -1,5 +1,5 @@
+import { resultadoBusca } from "./resultadoBusca";
 
-import {httpclient} from "typescript-http-client";
 // Um desenvolvedor tentou criar um projeto que consome a base de dados de filme do TMDB para criar um organizador de filmes, mas desistiu 
 // pois considerou o seu código inviável. Você consegue usar typescript para organizar esse código e a partir daí aprimorar o que foi feito?
 
@@ -22,6 +22,20 @@ let listId = '7101979';
 let loginButton = document.getElementById('login-button') as HTMLInputElement;
 let searchButton = document.getElementById('search-button') as HTMLInputElement;
 let searchContainer = document.getElementById('search-container') as HTMLInputElement;
+
+//Criando todas as interfaces que precisaremos usar
+
+interface User {
+  username:string;
+  password:string;
+  request_token: string
+}
+
+interface Requests {
+  url:string;
+  method:string;
+  body?: unknown|null
+}
 
 loginButton.addEventListener('click', async () => {
   await criarRequestToken();
@@ -82,24 +96,8 @@ function validateLoginButton() {
     loginButton.disabled = true;
   }
 }
-
-
-
-interface User {
-  username:string;
-  password:string;
-  request_token: string
-}
-
-interface Request {
-  url:string;
-  method:string;
-  body?: unknown|null
-}
-
-
 class HttpClient {
-  static async  get({url, method, body =null}:Request){
+  static async  get({url, method, body =null}:Requests){
     return new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
       request.open(method, url, true);
@@ -131,12 +129,6 @@ class HttpClient {
   }
 }
 
-type resultadoBusca = {
-  adult:boolean;
-  belong_to_collecton?:boolean;
-  budget: number;
-  original_title:string;
-} 
 
 async function procurarFilme(query:string){
   query = encodeURI(query)

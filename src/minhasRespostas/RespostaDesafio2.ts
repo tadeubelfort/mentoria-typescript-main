@@ -1,19 +1,22 @@
 
-//Só existem dois trabalhos executados, se surgirem novos adiciona-se a lista
+// Como só existe dois trabalhos entre as pessoas do exemplo, um enum com 
+// os dois já basta
 enum Trabalho{
     Atriz,
     Padeiro
 }
 
 
-
+// Depois criamos uma interface genérica para uma pessoa, onde definimos
+// as 3 propriedades de cada pessoa e seu respectivos tipos
 interface Humano {
     nome: string;
     idade: number;
     profissao: Trabalho;
-
 }
 
+//Depois basta definir para cada exemplo a interface Humano e colocar a profissão
+// Como um tipo de trabalho
 let pessoa1: Humano = {
 nome : "maria",
 idade : 29,
